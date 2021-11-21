@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Alimentador Rasp</title>
+
+        <link rel="stylesheet" href="/static/css/reset.css">
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/home.css">
+    </head>
+
+    <body>
+        <header class="cabecalho">
+            <div class="container">
+                <h1 class="cabecalho-titulo">Alimentador</h1>
+
+                <nav class="cabecalho-nav">
+                    <a class="cabecalho-nav-opcao" href="#">Alimentar</a>
+                    <a class="cabecalho-nav-opcao" href="./camera.html">Video</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="conteudo">
+            <section class="botao-peso">
+                <div class="container">
+                    <section class="botao-section">
+                        <form role="form" class="form-botao" name="feedbuttonclick" method="post" action="/feedbuttonclick">
+                            <button class="botao-alimentar" type="submit">Acionar</button>
+                        </form>
+                    </section>
+                    <section class="pesoTemporizar-section">
+                        <table class="tabela-peso">
+                            <thead>
+                                <tr class="linha-cabeca">
+                                    <th class="elemento-cabeca">Peso</th>
+                                    <th class="elemento-cabeca">Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in latestPeso %}
+                                <tr class="linha-corpo">
+                                    <td class="elemento-corpo">{{entry[0]}}</td>
+                                    <td class="elemento-corpo">{{entry[1]}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <form class="form-temporizador" name="scheduleDateTime" method="post" action="/scheduleDateTime">
+                            <input class="input-temporizador" type="date" name="scheduleDatetime">
+                            <input class="input-temporizador" type="time" name="scheduleTime">
+                            <input class="botao-time" type="submit" value="Escolha um horário">
+                        </form>
+                        <form class="form-temporizador" name="scheduleRepeatingDatetime" method="post" action="/scheduleRepeatingDatetime">
+                            <input class="input-temporizador" type="text" name="scheduleRepeatingDate" value="Diario" size="17" readonly>
+                            <input class="input-temporizador" type="time" name="scheduleRepeatingTime">
+                            <input class="botao-time" type="submit" value="Escolha um horário diario">
+                        </form>
+                    </section>
+                </div>
+            </section>
+
+            <section class="historico-agendador">
+                <div class="container">
+                    <section class="historico">
+                        <table class="tabela-historico">
+                            <thead>
+                                <tr class="linha-cabeca">
+                                    <th class="elemento-cabeca">Ultimos feeds</th>
+                                    <th class="elemento-cabeca">Tipo de feed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in latestXNumberFeedTimes %}
+                                <tr class="linha-corpo">
+                                    <td class="elemento-corpo">{{entry[0]}}</td>
+                                    <td class="elemento-corpo">{{entry[1]}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </section>
+                    <section class="agendador">
+                        <table class="tabela-agenda" id="proximos-feeds">
+                            <thead>
+                                <tr class="linha-cabeca">
+                                    <th class="elemento-cabeca">Data horário</th>
+                                    <th class="elemento-cabeca">Deletar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in upcomingXNumberFeedTimes %}
+                                <tr class="linha-corpo">
+                                    <td class="elemento-corpo">{{entry}}</td>
+                                    <td class="elemento-corpo">
+                                        <input type="button" value="Deletar" onclick="deleteRow(this)">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </section>
+                </div>   
+            </section>
+        </main>
+
+        <script>
+            function deleteRow(btn){
+                var table=document.getElementById('proximos-feeds');
+                var i=btn.parentNode.parentNode.rowIndex;
+                var cellVal=table.rows[i].cells[0].innerHTML;
+                document.myForm.action = "{{url_for('deleteRow',history='cellVal')}}".replace('cellVal',cellVal)
+                document.myForm.submit();
+            }
+        </script>
+    </body>
+</html>

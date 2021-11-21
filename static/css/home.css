@@ -1,0 +1,101 @@
+.conteudo {
+	margin: 20px auto;
+}
+
+.botao-peso .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 30px auto;
+}
+
+.botao-section {
+    width: 30%;
+}
+
+.botao-alimentar {
+	border-radius: 8px;
+	background-color: #ec6e5a;
+	display: block;
+	color: #FFF;
+	border: none;
+	height: 10em;
+    width: 20em;
+	font-size: 20px;
+	outline: none;
+}
+
+.botao-alimentar:hover {
+    background-color: #eb4127;
+}
+
+.pesoTemporizar-section {
+    width: 30%;
+}
+
+.tabela-peso {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.elemento-cabeca {
+    height: 20px;
+    border: 1px solid #000;
+    background-color: rgb(135, 115, 250);
+    text-align: center;
+    padding: 5px;
+    color: #FFF;
+    font-weight: 100;
+    vertical-align: middle;
+}
+
+.elemento-corpo {
+    height: 40px;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 5px;
+    color: #000;
+    font-weight: 100;
+    vertical-align: middle;
+}
+
+.form-temporizador {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.input-temporizador {
+    width: 20%;
+    height: 100%;
+}
+
+.botao-time {
+    width: 50%;
+    background-color: rgb(135, 115, 250);
+    border: solid 1px #000;
+    height: 100%;
+}
+
+.historico-agendador .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.historico {
+    width: 35%;
+}
+
+.agendador {
+    width: 35%;;
+}
+
+.tabela-historico {
+    width: 100%;
+}
+
+.tabela-agenda {
+    width: 100%;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Alimentador Rasp</title>
+
+        <link rel="stylesheet" href="/static/css/reset.css">
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/video.css">
+    </head>
+
+    <body>
+        <header class="cabecalho">
+            <div class="container">
+                <h1 class="cabecalho-titulo">Alimentador</h1>
+
+                <nav class="cabecalho-nav">
+                    <a class="cabecalho-nav-opcao" href="./home.html">Alimentar</a>
+                    <a class="cabecalho-nav-opcao" href="#">Video</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="conteudo-video">
+            <video>
+                <source src="/static/video/{{videoid}}">
+            </video>
+        </main>
+    </body>
+</html>

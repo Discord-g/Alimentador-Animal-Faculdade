@@ -52,7 +52,7 @@ def db_get_last_feedtimes(numberToGet):
         cur = con.execute(''' select feeddate,description
                                 from feedtimes ft
                                 join feedtypes fty on ft.feedtype=fty.feedtype
-                                where ft.feedtype in (1,2,3)
+                                where ft.feedtype in (1,2,3,4)
                                 order by feeddate desc
                                 limit ?''', [str(numberToGet), ])
         LastFeedingTimes = cur.fetchall()

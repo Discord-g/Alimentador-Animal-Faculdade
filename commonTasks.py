@@ -61,6 +61,22 @@ def db_get_last_feedtimes(numberToGet):
         return LastFeedingTimes
     except Exception as e:
         return e
+    
+def db_get_last_sensortimes(numberToGet):
+    try:
+        con = connect_db()
+        cur = con.execute(''' select feeddate,description
+                                from feedtimes ft
+                                join feedtypes fty on ft.feedtype=fty.feedtype
+                                where ft.feedtype in (4)
+                                order by feeddate desc
+                                limit ?''', [str(numberToGet), ])
+        LastFeedingTimes = cur.fetchall()
+        cur.close()
+        con.close()
+        return LastFeedingTimes
+    except Exception as e:
+        return e
 
 
 def db_get_scheduled_feedtimes(numberToGet):
@@ -118,6 +134,32 @@ def get_last_feedtime_string():
                                              nowDateObject - lastFeedDateObject).days)) + ' days ago!'  # str('%02d' % lastFeedDateObject.month)+'-'+str('%02d' % lastFeedDateObject.day)+'-'+str(lastFeedDateObject.year)[2:]+' '+str('%02d' % lastFeedDateObject.hour)+':'+str('%02d' % lastFeedDateObject.minute)
 
         finalMessage = 'Ultimo feed:\n' + verbiageString
+        return finalMessage
+    except Exception as e:
+        return e
+    
+def get_last_sensortime_string():
+    try:
+        # Get last date from database
+        lastFeedDateCursor = db_get_last_sensortimes(1)
+        lastFeedDateString = lastFeedDateCursor[0][0]
+        lastFeedDateObject = datetime.datetime.strptime(lastFeedDateString, "%Y-%m-%d %H:%M:%S")
+
+        yesterdayDateObject = datetime.datetime.now() - datetime.timedelta(days=1)
+        nowDateObject = datetime.datetime.now()
+        verbiageString = ''
+        finalMessage = ''
+        if lastFeedDateObject.year == nowDateObject.year and lastFeedDateObject.month == nowDateObject.month and lastFeedDateObject.day == nowDateObject.day:
+            verbiageString = 'Today' + ' ' + lastFeedDateObject.strftime(
+                "%I:%M %p")  # +str('%02d' % lastFeedDateObject.hour)+':'+str('%02d' % lastFeedDateObject.minute)
+        elif lastFeedDateObject.year == yesterdayDateObject.year and lastFeedDateObject.month == yesterdayDateObject.month and lastFeedDateObject.day == yesterdayDateObject.day:
+            verbiageString = 'Yesterday' + ' ' + lastFeedDateObject.strftime("%I:%M %p").replace(' ',
+                                                                                                 '')  # str('%02d' % lastFeedDateObject.hour)+':'+str('%02d' % lastFeedDateObject.minute)
+        else:
+            verbiageString = str(abs((
+                                             nowDateObject - lastFeedDateObject).days)) + ' days ago!'  # str('%02d' % lastFeedDateObject.month)+'-'+str('%02d' % lastFeedDateObject.day)+'-'+str(lastFeedDateObject.year)[2:]+' '+str('%02d' % lastFeedDateObject.hour)+':'+str('%02d' % lastFeedDateObject.minute)
+
+        finalMessage = 'Sensor acionado:\n' + verbiageString
         return finalMessage
     except Exception as e:
         return e

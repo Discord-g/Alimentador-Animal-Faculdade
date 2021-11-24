@@ -117,7 +117,7 @@ while True:
         else:
             dblog = commonTasks.db_insert_feedtime(buttonPressDatetime, 4)
             print("End DB Insert return status: " + str(dblog))
-            updatescreen = commonTasks.print_to_LCDScreen(commonTasks.get_last_feedtime_string())
+            updatescreen = commonTasks.print_to_LCDScreen(commonTasks.get_last_sensortime_string())
             print("End Message Display return status: " + str(updatescreen))
 
     if killer.kill_now: break

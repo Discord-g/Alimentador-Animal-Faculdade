@@ -60,7 +60,7 @@ Number_Feed_Times_To_Display=10
 Number_Scheduled_Feed_Times_To_Display=7
 Number_Videos_To_Display=100
 Seconds_Delay_After_Button_Push=3
-Seconds_Delay_Between_Schedule_Checks=300
+Seconds_Delay_Between_Schedule_Checks=120
 Secretkey=SUPER_SECRET_KEY
 """)
 
